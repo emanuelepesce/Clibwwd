@@ -1,4 +1,4 @@
-libwwd
+Clibwwd
 =======
 
 ##About
@@ -15,7 +15,7 @@ It cointains: <br\>
 
 ##Instructions
 1. Compile it (i.e.: $ gcc -o driver example.c libwwd.c) <br\>
-2. Execute it (i.e.: $ ./driver dataset_iris.csv) <br\>i
+2. Execute it (i.e.: $ ./driver dataset_iris.csv) <br\>
 
 ---------------------------------------------
 ##Notes
