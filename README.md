@@ -22,4 +22,3 @@ Notes: for now it supports CSV files with only numerics values separated by comm
 =============================================
 For each suggestion or contribution don't hesitate to contact me.
 
-emanuelepesce.ep@gmail.com
