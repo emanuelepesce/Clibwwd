@@ -11,11 +11,11 @@ It cointains: <br\>
 - libwwd.c: source file that contains the main functions of the library <br\>
 - libwwd.h: header file<br\>
 - example.c: file containing a simple example of use <br\>
-- dataset_iris: famous iris dataset created by R.A. Fisher (more info - - - about:https://archive.ics.uci.edu/ml/datasets/Iris)
+- dataset_iris.csv: famous iris dataset created by R.A. Fisher (more info - - - about:https://archive.ics.uci.edu/ml/datasets/Irs)
 
 ##Instructions
 1. Compile it (i.e.: $ gcc -o driver example.c libwwd.c) <br\>
-2. Execute it (i.e.: $ ./driver dataset_iris.csv) <br\>
+2. Execute it (i.e.: $ ./driver dataset_iris.csv) <br\>i
 
 ---------------------------------------------
 ##Notes
