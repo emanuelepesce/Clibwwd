@@ -1,9 +1,9 @@
 /*
  *	A collection of useful functions for working with datasets
  *  
- *  Author: Emanuele Pesce
+ 	Author: Emanuele Pesce
  *
- *  Last Update:  December 2014
+ *  	Last Update: 5 December 2014
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -206,3 +206,30 @@ int* getDatasetSize(char *filename){
 	fclose(fp);
 	return dim;
 }
+
+
+void showData(int nRows, int nCols, double** data){
+/*
+	Print the data matrix
+	
+	arguments
+	nrows: int number of rows
+	ncols: int, number of columns
+	data: double **, matrix of data
+*/
+	int i, j;	
+	printf("\n=========== Data =============\n");
+  	for (j = 0; j < nCols; j++) 
+  		printf("\tCol %d", j);
+  	printf ("\n");
+  	for (i = 0; i < nRows; i++){
+  	   	printf("Row %d:", i);
+    	for (j = 0; j < nCols; j++){ 
+    	  	printf("\t%f",data[i][j]);
+    	}
+    printf("\n");
+  }
+  printf("\n");
+  return;
+}
+
