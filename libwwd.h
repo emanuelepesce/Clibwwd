@@ -16,6 +16,11 @@ double** loadData(FILE *file, int nCols, int nRows, char *del);
 double** readCSVFile(char* filename);
 int* getDatasetSize(char *filename);
 void showData(int nRows, int nCols, double** data);
+double** loadSubsetData(FILE *file, int nCols, char *del, int *indices, int sizeI);
+double** readSubsetCSVFile(char* filename, int nRows, int nCols, int *indices);
+
+
 
 #endif /*libwwd.h*/
+
 
