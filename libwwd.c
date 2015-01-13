@@ -233,3 +233,84 @@ void showData(int nRows, int nCols, double** data){
   return;
 }
 
+
+double** loadSubsetData(FILE *file, int nCols, char *del, int *indices, int sizeI){
+/*
+    Put a subset dataset values in a matrix.
+    It takes care only about the rows specified in indices.
+    It assumes that dataset cointains only numerics values.
+
+    returns
+    matrix: double**, a matrix that cointains the subset dataset values
+
+    arguments
+    file: FILE, file pointer of the dataset
+    nCols: int, number of columns of the dataset
+    del: char*, delimitator
+    indices: int*, array containing indices to select. It MUST BE sorted.
+    sizeI: int, lenght of indices (alias number of rows of the subset dataset)
+*/
+    int i,j,numLine = 0;
+    char line[BUFSIZ], *stmp;
+    double** matrix = malloc(sizeI*sizeof(double*) );
+
+    /*	Allocate matrix */
+    for (i = 0; i < sizeI; i++){
+        matrix[i] = malloc(nCols*sizeof(double));
+    }
+    /*
+        For each line to select, remove the separators and put elements in a matrix as
+        double
+     */
+    rewind(file);
+    fgets(line, sizeof line, file);
+    i=0;
+    while (i < sizeI){
+        /* If the index is the same increase "i" else go on with next line of the file */
+        if (indices[i] == numLine){
+            stmp = line;
+            stmp=str_replace(stmp, del, " ");
+            for ( j = 0; j<nCols; j++)
+            {
+               matrix[i][j] = strtold(stmp, &stmp);
+            }
+            i++;
+        }
+        else{
+            fgets(line, sizeof line, file);
+            numLine++;
+        }
+    }
+    fclose(file);
+    return matrix;
+}
+
+double** readSubsetCSVFile(char* filename, int nRows, int nCols, int *indices){
+/*
+    Load in a matrix of double a CSV dataset.
+    It works if csv file has only numerics values.
+
+    returns
+    matrix: double**, matrix of double that cointains dataset values
+
+    arguments
+    filename: char*, string that cointains name of the dataset file
+    nRows: int, number of rows. It's equal to the number of elements of indices.
+    nCols: int, number of columns
+    indices: int*, array. Each element is an index a row to select up.
+*/
+    double** matrix;
+    FILE *fp;
+    /*	Open the file	*/
+    fp = fopen(filename, "r");
+    if (fp != NULL){
+
+        /*	Load dataset in a matrix of double	*/
+        matrix = loadSubsetData(fp, nCols, ",", indices, nRows);
+    }
+    /*error with the file opening */
+    else{
+        perror(filename);
+    }
+    return matrix;
+}
