@@ -3,7 +3,7 @@ Clibwwd
 
 ##About
 A C library for Working easily With Datasets. <br\>
-
+It provides functions for getting data from a csv file and doing some useful operations such as print them, put them in a matrix. It's also possible working only on a part of data. <br\>
 Version: 1.0 <br\>
 
 
