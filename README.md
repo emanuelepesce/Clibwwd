@@ -19,7 +19,7 @@ It cointains: <br\>
 
 ---------------------------------------------
 ##Notes
-For now it supports CSV files with only numerics values separated by comma. <br\>
+For now it supports CSV files with only numerics values separated by comma. However the code can be easily extends for supporting others delimitators.  <br\>
 
 
 =============================================
