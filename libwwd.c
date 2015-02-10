@@ -1,26 +1,31 @@
 /*
  *	A collection of useful functions for working with datasets
  *  
- 	Author: Emanuele Pesce
+ *  Author: Emanuele Pesce
  *
- *  	Last Update: 5 December 2014
+ *  Last Update: 10 December 2015
 */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "libwwd.h"
 #include <errno.h>
+#include "libwwd.h"
+
 
 double** readCSVFile(char* filename){
 /*
-	Load in a matrix of double a CSV dataset.
+    Purpose
+    =======
+    Load in a matrix of double a CSV dataset.
 	It works if csv file has only numerics values.
 	
-	returns
+    arguments
+    =========
+    filename: char*, string that cointains name of the dataset file
+
+    return
+    ======
 	matrix: double**, matrix of double that cointains dataset values
-	
-	arguments
-	filename: char*, string that cointains name of the dataset file
 */
 	double** matrix;
 	char line[BUFSIZ];
@@ -50,16 +55,20 @@ double** readCSVFile(char* filename){
 
 double** loadData(FILE *file, int nRows, int nCols, char *del){
 /*	
+    Purpose
+    =======
 	Put the dataset values in a matrix.
 	It assumes that dataset cointains only numerics values.	
-	
-	returns
+
+    arguments
+    =========
+    file: FILE, file pointer of the dataset
+    nCols: int, number of columns of the dataset
+    nRows: number of rows of the dataset
+
+    return
+    ======
 	matrix: double**, a matrix that cointains the dataset values
-	
-	arguments
-	file: FILE, file pointer of the dataset
-	nCols: int, number of columns of the dataset
-	nRows: number of rows of the dataset
 */
 	int i,j; 
 	char line[BUFSIZ], *stmp;
@@ -90,14 +99,18 @@ double** loadData(FILE *file, int nRows, int nCols, char *del){
 
 int getNumberOfCols(char* line, char* del){
 /*
+    Purpose
+    =======
 	Count the number of columns of a row.
 	
-	returns
+    arguments
+    =========
+    line: string, row of a dataset
+    del: string, separator of the string values of line
+
+    return
+    ======
 	nCols: number of columns of a row
-	
-	arguments
-	line: string, row of a dataset
-	del: string, separator of the string values of line
 */
 	char* col;
 	int nCols = 0;
@@ -112,14 +125,18 @@ int getNumberOfCols(char* line, char* del){
 
 int getNumberOfRows(FILE *file){
 /*
-	Count the number of rows of a file
+    Purpose
+    =======
+    Count the number of rows of a file
 	It assumes that the last line does not cointan "\n"
 	
-	returns
-	nRows: number of rows of a file
-	
 	arguments
+    =========
 	file: FILE, file pointer
+
+    return
+    ======
+    nRows: number of rows of a file
 */
 	int cur, nRows=0;
 	
@@ -134,15 +151,19 @@ int getNumberOfRows(FILE *file){
 
 char *str_replace (const char *string, const char *substr, const char *replacement ){
 /*
+    Purpose
+    =======
 	implements a str_replace PHP like function	
 	
-	returns
-	newstring: string, string modified
-	
 	arguments
+    =========
 	string: string, string to modify
 	substring: string, substring to change in string
 	replacement: string, string to substitute in string at place of substring
+
+    return
+    ======
+    newstring: string, string modified
 */
   char *tok = NULL;
   char *newstr = NULL;
@@ -175,13 +196,17 @@ char *str_replace (const char *string, const char *substr, const char *replaceme
 
 int* getDatasetSize(char *filename){
 /*
+    Purpose
+    =======
 	Counts the number of columns and rows of a dataset file
 	
-	returns
-	dim: int*, dim[1]:number of rows, dim[2]: number of columns
-	
 	arguments
+    =========
 	filename: char*, string containing the name of the file
+
+    return
+    ======
+    dim: int*, dim[1]:number of rows, dim[2]: number of columns
 */
 	int *dim;
 	char line[BUFSIZ];
@@ -210,12 +235,16 @@ int* getDatasetSize(char *filename){
 
 void showData(int nRows, int nCols, double** data){
 /*
+    Purpose
+    =======
 	Print the data matrix
 	
 	arguments
+    =========
 	nrows: int number of rows
 	ncols: int, number of columns
 	data: double **, matrix of data
+
 */
 	int i, j;	
 	printf("\n=========== Data =============\n");
@@ -233,22 +262,55 @@ void showData(int nRows, int nCols, double** data){
   return;
 }
 
+void showDataInt(int nRows, int nCols, int** data){
+/*
+    Purpose
+    =======
+    Print the data matrix
+
+    arguments
+    =========
+    nrows: int number of rows
+    ncols: int, number of columns
+    data: double **, matrix of data
+*/
+    int i, j;
+    printf("\n=========== Data =============\n");
+
+    for (j = 0; j < nCols; j++)
+        printf("\tCol %d", j);
+    printf ("\n");
+    for (i = 0; i < nRows; i++){
+        printf("Row %d:", i);
+        for (j = 0; j < nCols; j++){
+            printf("\t%d",data[i][j]);
+        }
+    printf("\n");
+  }
+  printf("\n");
+  return;
+}
+
 
 double** loadSubsetData(FILE *file, int nCols, char *del, int *indices, int sizeI){
 /*
+    Purpose
+    =======
     Put a subset dataset values in a matrix.
     It takes care only about the rows specified in indices.
     It assumes that dataset cointains only numerics values.
 
-    returns
-    matrix: double**, a matrix that cointains the subset dataset values
-
     arguments
+    =========
     file: FILE, file pointer of the dataset
     nCols: int, number of columns of the dataset
     del: char*, delimitator
     indices: int*, array containing indices to select. It MUST BE sorted.
     sizeI: int, lenght of indices (alias number of rows of the subset dataset)
+
+    return
+    ======
+    matrix: double**, a matrix that cointains the subset dataset values
 */
     int i,j,numLine = 0;
     char line[BUFSIZ], *stmp;
@@ -285,19 +347,74 @@ double** loadSubsetData(FILE *file, int nCols, char *del, int *indices, int size
     return matrix;
 }
 
+double** readSubsetCSVFileCol(char* filename, int nRows, int nCols, int *indices){
+/*
+    Purpose
+    =======
+    Load in a matrix of double a a part CSV dataset.
+    It works if csv file has only numerics values.
+    All the rows will be taken, but not all the columns.
+
+
+    arguments
+    =========
+    filename: char*, string that cointains name of the dataset file
+    nRows: int, number of rows.
+    nCols: int, number of columns. It's equal to the number of elements of indices.
+    indices: int*, array. Each element is an index a row to select up.
+
+    return
+    ======
+    matrix: double**[nRows,nCols], matrix of double that cointains dataset values.
+
+*/
+    double **cmatrix, **matrix;
+    int i, j=0;
+    FILE *fp;
+    /*	Open the file	*/
+    /*	Allocate matrix */
+    matrix = malloc(nRows*sizeof(double*)) ;
+    for (i = 0; i < nRows; i++){
+        matrix[i] = malloc(nCols*sizeof(double));
+    }
+    fp = fopen(filename, "r");
+    if (fp != NULL){
+        /*	Load dataset in a matrix of double	*/
+        cmatrix = readCSVFile(filename);
+
+        /* Fill matrix */
+        for (j=0;j<nCols;j++){
+            for (i=0;i<nRows;i++){
+                matrix[i][j] = cmatrix[i][indices[j]];
+            }
+        }
+    }
+    /*error with the file opening */
+    else{
+        perror(filename);
+    }
+    return matrix;
+}
+
+
+
 double** readSubsetCSVFile(char* filename, int nRows, int nCols, int *indices){
 /*
+    Purpose
+    =======
     Load in a matrix of double a CSV dataset.
     It works if csv file has only numerics values.
 
-    returns
-    matrix: double**, matrix of double that cointains dataset values
-
     arguments
+    =========
     filename: char*, string that cointains name of the dataset file
     nRows: int, number of rows. It's equal to the number of elements of indices.
     nCols: int, number of columns
     indices: int*, array. Each element is an index a row to select up.
+
+    return
+    ======
+    matrix: double**, matrix of double that cointains dataset values
 */
     double** matrix;
     FILE *fp;
@@ -313,4 +430,97 @@ double** readSubsetCSVFile(char* filename, int nRows, int nCols, int *indices){
         perror(filename);
     }
     return matrix;
+}
+
+
+double** loadSubsetDataCol(double** cmatrix, int nRows, int nCols, int *indices){
+/*
+    Purpose
+    =======
+    Load in a matrix, a subset of cmatrix.
+    All rows will be taken. It's not the same for columns because only those specified in
+    indices will be taken.
+
+    arguments
+    =========
+    filename: cmatrix, complete matrix of data.
+    nRows: int, number of rows.
+    nCols: int, number of columns. It's equal to the number of elements of indices.
+    indices: int*, array. Each element is an index a row to select up.
+
+    return
+    ======
+    matrix: double**[nRows,nCols], matrix of double that cointains dataset values.
+*/
+    double** matrix;
+    int i, j=0;
+    /*	Allocate matrix */
+    matrix = malloc(nRows*sizeof(double*) );
+    for (i = 0; i < nRows; i++){
+        matrix[i] = malloc(nCols*sizeof(double));
+    }
+    /* Fill matrix */
+    for (j=0;j<nCols;j++){
+        for (i=0;i<nRows;i++){
+            matrix[i][j] = cmatrix[i][indices[j]];
+        }
+    }
+
+    return matrix;
+}
+
+
+void showLowerMatrix(int nRows, double **data)
+/*
+    Purpose
+    =======
+    Print the matrix "data". It assumes that data is a lower triangular matrix;
+
+    arguments
+    =========
+    data: double**, lower traingular matrix of double;
+    nRows: int, number of rows of data;
+*/
+{
+    int i,j;
+
+    printf("\n============ Matrix ============\n");
+    printf("   Obj:");
+    for(i=0; i<nRows-1; i++)
+        printf("%6d", i);
+    printf("\n");
+    for(i=0; i<nRows; i++)
+    {
+        printf("Obj %2d:",i);
+        for(j=0; j<i; j++) printf(" %5.2f",data[i][j]);
+        printf("\n");
+    }
+    printf("\n");
+
+}
+
+
+double** transposeMat(double** mat, int nRows, int nCols){
+/*
+    Purpose
+    =======
+    Transpose a matrix
+
+    return
+    ======
+    tmat, double**, transpose of mat
+*/
+    double** tmat;
+    int i,j;
+
+    tmat = malloc(nCols*sizeof(double*));
+    for (i = 0; i < nCols; i++){
+        tmat[i] = malloc(nRows*sizeof(double));
+    }
+    for (i=0;i<nRows;i++){
+        for (j=0;j<nCols;j++){
+            tmat[j][i]=mat[i][j];
+        }
+    }
+    return tmat;
 }
