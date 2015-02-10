@@ -1,4 +1,4 @@
-Clibwwd
+libwwd
 =======
 
 ##About
