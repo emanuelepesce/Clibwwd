@@ -3,14 +3,14 @@ libwwd
 
 ##About
 A C library for Working easily With Datasets. <br\>
-It provides functions for getting data from a csv file and doing some useful operations such as print them, put them in a matrix. It's also possible working only on a part of data. <br\>
+It provides functions in order to extract data from a csv file and to performs some useful operations such as print data or put data into a matrix. It also makes possible to work only on a part of data. <br\>
 Version: 1.0 <br\>
 
 
 It cointains: <br\>
 - libwwd.c: source file that contains the main functions of the library <br\>
 - libwwd.h: header file<br\>
-- example.c: file containing a simple example of use <br\>
+- example.c: file which contain a simple example of use <br\>
 - dataset_iris.csv: famous iris dataset created by R.A. Fisher (more info - - - about:https://archive.ics.uci.edu/ml/datasets/Irs)
 
 ##Instructions
@@ -19,7 +19,7 @@ It cointains: <br\>
 
 ---------------------------------------------
 ##Notes
-For now it supports CSV files with only numerics values separated by comma. However the code can be easily extends for supporting others delimitators.  <br\>
+It supports CSV files with only numerics values separated by comma, but the code can be easily extends in order to support other delimitators.  <br\>
 
 
 =============================================
