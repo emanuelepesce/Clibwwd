@@ -8,7 +8,7 @@ Version: 1.0 <br\>
 
 
 It cointains: <br\>
-- libwwd.c: source file that contains the main functions of the library <br\>
+- libwwd.c: source file which contains the main functions of the library <br\>
 - libwwd.h: header file<br\>
 - example.c: file which contain a simple example of use <br\>
 - dataset_iris.csv: famous iris dataset created by R.A. Fisher (more info - - - about:https://archive.ics.uci.edu/ml/datasets/Irs)
@@ -19,7 +19,7 @@ It cointains: <br\>
 
 ---------------------------------------------
 ##Notes
-It supports CSV files with only numerics values separated by comma, but the code can be easily extends in order to support other delimitators.  <br\>
+It supports CSV files with only numerics values separated by comma, but the code can be easily extented in order to support other delimitators.  <br\>
 
 
 =============================================
